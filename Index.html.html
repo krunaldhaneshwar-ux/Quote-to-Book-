@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cedric · Quote to Book</title>
+<style>
+/* =========================================================
+   Cedric · Quote to Book — single design system
+   type scale 12/13/14/16/20/22/30 · spacing 4/8/12/16/20/24
+   ========================================================= */
+:root{
+ --bg:#f3f1f8;--sf:#fff;--soft:#faf9fd;--ink:#1f1b2e;--mu:#6b6780;--ln:#e7e3f0;--ln2:#d5cfe4;
+ --pr:#6b4ba1;--pr2:#573d86;--ps:#f0ebf8;--gr:#3d8c2a;--gr2:#327323;--grs:#eef7eb;
+ --pk:#e6007e;--or:#d98e1d;--ok:#1b8a5d;--rd:#c0392b;
+ --shadow:0 1px 2px rgba(42,31,74,.05),0 4px 14px rgba(42,31,74,.04);
+ --r:12px;--r2:8px;
+ /* legacy aliases */--panel:#fff;--line:var(--ln);--line-strong:var(--ln2);--muted:var(--mu);--purple:var(--pr);--purple-soft:var(--ps);--purple-strong:var(--pr2);--success:var(--ok);--warning:var(--or);--lk:var(--pk);--ok2:var(--ok)}
+*{box-sizing:border-box}
+*{scrollbar-width:none;-ms-overflow-style:none}
+*::-webkit-scrollbar{display:none;width:0;height:0}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 14px/1.5 system-ui,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--pr);outline-offset:2px}
+h2,h3{margin:0}
+
+/* ---------- form controls ---------- */
+input,select,textarea{width:100%;min-height:38px;padding:8px 12px;background:#fff;border:1px solid var(--ln2);border-radius:var(--r2);font-size:14px;line-height:1.4;transition:border-color .15s,box-shadow .15s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--pr);box-shadow:0 0 0 3px rgba(107,75,161,.12)}
+input::placeholder,textarea::placeholder{color:#9b97ad}
+input:disabled,select:disabled{background:#f4f2f8;color:#8d89a0;cursor:not-allowed}
+select{appearance:none;-webkit-appearance:none;padding-right:36px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='m4 6 4 4 4-4' stroke='%236b6780' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-size:16px}
+select.pend{color:var(--mu)}
+textarea{min-height:72px;resize:vertical}
+input[type=checkbox],input[type=radio]{width:16px;height:16px;min-height:0;padding:0;flex:none;accent-color:var(--pr)}
+label,.fl{display:block;margin:0 0 6px;font-size:12px;font-weight:500;color:var(--mu)}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:auto;min-height:38px;margin:0;padding:8px 18px;border:1px solid var(--pr);border-radius:var(--r2);background:#fff;color:var(--pr);font-size:14px;font-weight:600;line-height:1.2;transition:background .15s,border-color .15s}
+.btn:hover{background:var(--ps)}
+.btn.p{background:var(--pr);color:#fff}.btn.p:hover{background:var(--pr2)}
+.btn.ghost{border-color:var(--gr);color:var(--gr)}.btn.ghost:hover{background:var(--grs)}
+.btn.go{border-color:var(--gr);background:var(--gr);color:#fff;padding:8px 24px}.btn.go:hover{background:var(--gr2)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.mini{min-height:32px;padding:5px 12px;border:1px solid var(--ln2);border-radius:var(--r2);background:#fff;color:var(--ink);font-size:13px;font-weight:500}
+.mini:hover{border-color:var(--pr);color:var(--pr);background:var(--ps)}
+
+/* ---------- app shell ---------- */
+.app{display:grid;grid-template-columns:248px minmax(0,1fr);min-height:100vh}
+.sb{position:sticky;top:0;height:100vh;overflow:auto;display:flex;flex-direction:column;gap:2px;padding:16px 12px 24px;background:#fff;border-right:1px solid var(--ln)}
+.logo{display:block;width:100%;max-width:180px;height:auto;margin:0 auto 16px}
+.logo-fb{display:flex;flex-direction:column;align-items:center;margin:0 0 16px;padding:8px 0;color:var(--gr)}
+.logo-fb b{font-size:22px;font-weight:700;line-height:1.2}.logo-fb span{font-size:13px;font-weight:600}
+.nav-link{display:flex;align-items:center;gap:12px;min-height:42px;padding:9px 12px;border-radius:var(--r2);color:var(--ink);font-size:14px;font-weight:500;text-decoration:none;transition:background .15s}
+.nav-link svg{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;opacity:.8}
+.nav-link:hover{background:var(--ps)}
+.nav-link.is-active{background:var(--pr);color:#fff}.nav-link.is-active svg{opacity:1}
+.nav-sep{border:0;border-top:1px solid var(--ln);margin:8px 4px}
+.hd{display:flex;align-items:center;gap:16px;min-height:72px;padding:0 24px;background:#fff;border-bottom:1px solid var(--ln)}
+.hd .bk{width:22px;height:22px;flex:none;fill:none;stroke:var(--ink);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.hd .ib{display:none}
+.hd h2{flex:1;font-size:22px;font-weight:600;line-height:1.2}
+.hd .bell{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:#eef7eb}
+.hd .bell svg{width:20px;height:20px;fill:none;stroke:var(--gr);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.hd .un{padding-left:16px;border-left:1px solid var(--ln);font-size:14px;font-weight:500}
+.av{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--ps);color:var(--pr);font-size:14px;font-weight:600}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:var(--r);box-shadow:var(--shadow)}
+
+/* ---------- page grid ---------- */
+main.c360{display:grid;grid-template-columns:340px minmax(0,1fr);gap:24px;align-items:start;padding:24px 24px 64px}
+main.c360>.cust{grid-column:1;grid-row:1;position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto}
+main.c360>.rt{grid-column:2;grid-row:1;display:flex;flex-direction:column;gap:20px;min-width:0}
+
+/* ---------- left customer card ---------- */
+.cust{padding:24px 20px}
+.cust-top{display:flex;justify-content:center;margin-bottom:12px}
+.avc{display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:var(--ps);color:var(--pr);font-size:20px;font-weight:700}
+.cust .cid{text-align:center;font-size:15px;font-weight:500;color:var(--pk)}
+.cust .cname{margin:4px 0 12px;text-align:center;font-size:22px;font-weight:600;line-height:1.25}
+.cline{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:6px;font-size:14px}
+.cline svg{width:18px;height:18px;flex:none;fill:none;stroke:var(--pr);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.cline span{overflow-wrap:anywhere}
+.cust #send{width:100%;margin-top:12px}
+.cust #clone{display:flex;margin:20px auto 0}
+.cust hr{margin:20px 0 8px;border:0;border-top:1px solid var(--ln)}
+.kv{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:42px;padding:6px 0}
+.kv label{flex:none;margin:0;font-size:14px;font-weight:400;color:var(--mu)}
+.kv b{font-size:14px;font-weight:600;text-align:right;overflow-wrap:anywhere}
+.kv select{width:180px;min-height:36px;padding-top:5px;padding-bottom:5px;font-size:13px}
+.kv input{width:96px;min-height:36px;padding:5px 28px 5px 10px;text-align:right}
+.kv.big{padding:12px 0}
+.cust .sell{font-size:30px;font-weight:700;line-height:1.1;color:var(--pk);font-variant-numeric:tabular-nums}
+
+/* ---------- booking header card ---------- */
+.bkh{padding:12px 24px 18px}
+.bkh-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 14px;padding-bottom:12px;border-bottom:1px solid var(--ln)}
+.pill{display:inline-flex;align-items:center;gap:8px;min-height:30px;padding:4px 14px;border:1.5px solid var(--or);border-radius:999px;background:#fff;color:var(--or);font-size:13px;font-weight:500;white-space:nowrap}
+.pill:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--or)}
+.pill.sent{border-color:var(--ok);color:var(--ok)}.pill.sent:before{background:var(--ok)}
+.bkh-t{margin:0;font-size:20px;font-weight:600}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px 20px}
+.meta>div{display:flex;align-items:flex-start;gap:10px;min-width:0}
+.meta svg{width:20px;height:20px;flex:none;margin-top:2px;fill:none;stroke:var(--pr);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.meta small{display:block;font-size:12px;color:var(--mu)}
+.meta b{font-size:14px;font-weight:600;overflow-wrap:anywhere}
+.meta b.id{font-size:15px;color:var(--pk)}
+
+/* ---------- tab row ---------- */
+.tabrow{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.tabs{display:flex;gap:2px;max-width:100%;padding:6px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{padding:10px 16px;border:0;border-radius:6px;background:transparent;font-size:13px;font-weight:500;letter-spacing:.01em;white-space:nowrap;transition:background .15s}
+.tabs button:hover{background:var(--ps)}
+.tabs button[aria-selected=true]{background:var(--pr);color:#fff}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ---------- content card ---------- */
+.content{min-height:520px;padding:24px}
+.panel>h3{margin:0 0 16px;font-size:20px;font-weight:600}
+.note{margin:16px 0 0;font-size:13px;color:var(--mu)}
+.empty,.hint{color:var(--mu);font-size:14px}
+
+/* day tabs: one fixed-width scrolling line */
+.day-tabs{display:flex;flex-wrap:nowrap;gap:8px;margin:0 0 20px;padding:0 0 16px;border-bottom:1px solid var(--line);overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none}
+.day-tab{flex:0 0 132px;display:inline-flex;align-items:center;justify-content:center;gap:6px;width:132px;min-height:34px;padding:6px 10px;border:1px solid var(--ln);border-radius:var(--r2);background:#fff;color:var(--mu);font-size:12px;white-space:nowrap;scroll-snap-align:start;transition:background .15s,border-color .15s}
+.day-tab b{font-size:12px;font-weight:600;color:var(--ink)}
+.day-tab:hover{border-color:var(--pr)}
+.day-tab[aria-selected=true]{border-color:var(--pr);background:var(--pr);color:#fff}
+.day-tab[aria-selected=true] b{color:#fff}
+.dh{display:flex;align-items:baseline;gap:8px;margin:0 0 4px;font-size:16px;font-weight:600}
+.dh b{font-weight:400;color:var(--mu);font-size:14px}
+.page-add{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0 16px}
+.page-add-label{margin-right:4px;font-size:13px;font-weight:500;color:var(--mu)}
+.chip{min-height:34px;padding:5px 14px;border:1px solid var(--pr);border-radius:999px;background:#fff;color:var(--pr);font-size:13px;font-weight:600;transition:background .15s,color .15s}
+.chip:hover{background:var(--pr);color:#fff}
+.zone{display:flex;flex-direction:column;gap:12px;min-height:140px;padding:16px;border:1px dashed var(--ln2);border-radius:var(--r);background:var(--soft)}
+.zone .hint{margin:auto;text-align:center}
+.trip{margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
+.sec-h{display:flex;align-items:baseline;gap:12px;margin:0}
+.sec-h b{font-size:16px;font-weight:600}.sec-h span{font-size:14px;color:var(--mu)}
+
+/* component cards */
+.cc{border:1px solid var(--ln);border-radius:10px;background:#fff;box-shadow:0 1px 2px rgba(42,31,74,.05);min-width:0}
+.ct{display:flex;align-items:center;gap:16px;padding:14px 16px;cursor:pointer;border-radius:10px 10px 0 0}
+.ct:hover{background:var(--soft)}
+.ct-main{display:grid;gap:2px;flex:1;min-width:0}
+.ct-main b{font-size:15px;font-weight:600;color:var(--ink)}
+.ct-main span{overflow:hidden;font-size:13px;color:var(--mu);text-overflow:ellipsis;white-space:nowrap}
+.ct em{flex:none;font-style:normal;font-size:15px;font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.ct em small{display:block;font-size:12px;font-weight:400;color:var(--mu)}
+.ct-chev{display:grid;place-items:center;width:28px;height:28px;flex:none;border-radius:6px;color:var(--mu)}
+.ct-chev svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .15s}
+.ct[aria-expanded=true] .ct-chev svg{transform:rotate(180deg)}
+.cb{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px;padding:16px;border-top:1px solid var(--ln)}
+.cb>div{min-width:0}.cb label{margin-bottom:6px}
+.cb .w,.cb .row{grid-column:1/-1}
+.cb .mini[data-a=pnr]{margin-top:8px}
+.chk{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px 16px}
+.chk label{display:flex;align-items:center;gap:8px;margin:0;font-size:13px;font-weight:400;color:var(--ink)}
+.row{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px 16px;align-items:end;padding:16px;border:1px solid var(--ln);border-radius:var(--r2);background:var(--soft)}
+.row>div{min-width:0}
+.cc-footer{display:flex;align-items:center;gap:8px;padding:10px 16px;border-top:1px solid var(--ln);background:var(--soft);border-radius:0 0 10px 10px}
+.cc-move-row{display:flex;align-items:center;gap:8px;margin-right:auto;font-size:13px;color:var(--mu)}
+.cc-move-row select{width:190px;min-height:32px;padding-top:3px;padding-bottom:3px;font-size:13px}
+.ct-duplicate{min-height:32px;padding:5px 12px;border:1px solid var(--ln2);border-radius:var(--r2);background:#fff;font-size:13px;font-weight:500}
+.ct-duplicate:hover{border-color:var(--pr);color:var(--pr)}
+.ct-delete{display:grid;place-items:center;width:32px;height:32px;padding:0;border:1px solid var(--ln2);border-radius:var(--r2);background:#fff;color:var(--mu)}
+.ct-delete svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ct-delete:hover{border-color:var(--rd);color:var(--rd);background:#fdf1ef}
+
+/* ---------- other panels ---------- */
+#lines .pl{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--ln);font-size:14px}
+#lines .pl span:last-child{font-weight:600;font-variant-numeric:tabular-nums}
+.stbar{display:grid;gap:4px;max-width:440px}
+.v2{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;padding:6px 0;border-top:1px solid var(--ln);font-size:14px;color:var(--mu)}
+.v2 b{color:var(--ink);font-weight:500}.v2 label{margin:0;font-size:14px;font-weight:400}.v2 input{width:170px}
+.panel .btn.fit{margin-top:20px}
+.rel-list{display:grid;gap:12px}
+.rq{padding:14px 16px;border:1px solid var(--ln);border-radius:var(--r2);background:var(--soft)}
+.rq-t{display:flex;align-items:center;gap:12px}.rq-t b{font-size:15px}
+.tag{padding:2px 10px;border-radius:999px;background:var(--ps);color:var(--pr);font-size:12px;font-weight:600}
+.rq-m{margin-top:4px;font-size:13px;color:var(--mu)}
+#vers{display:grid;gap:12px}
+.v{padding:14px 16px;border:1px solid var(--ln);border-left:3px solid var(--pr);border-radius:var(--r2);background:var(--soft);font-size:14px;line-height:1.5}
+.v b{color:var(--pr)}
+.tsg{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.itg{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.itg textarea{min-height:170px}.itg .btn{margin-top:12px}
+.sc{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:10px 12px;border-bottom:1px solid var(--ln);text-align:left;vertical-align:top}
+th{background:var(--soft);font-weight:600;color:var(--mu)}
+td.empty{color:var(--mu)}
+
+/* ---------- clone dialog ---------- */
+dialog{width:min(680px,92vw);padding:24px;border:1px solid var(--ln);border-radius:var(--r);background:#fff;color:var(--ink);box-shadow:0 20px 50px rgba(31,27,46,.25)}
+dialog::backdrop{background:rgba(31,27,46,.5)}
+.dlg-t{margin-bottom:16px;font-size:20px;font-weight:600}
+.dlg-sub{margin:16px 0 8px}
+.fgrp{display:grid;gap:6px;margin:0 0 4px}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
+#cres{max-height:190px;margin:12px 0;overflow:auto;border:1px solid var(--ln);border-radius:var(--r2)}
+#cres tr[data-r]{cursor:pointer}#cres tr[data-r]:hover td,#cres tr.sel td{background:var(--ps)}
+fieldset.opts{display:grid;gap:8px;margin:16px 0;padding:0;border:0}
+fieldset.opts legend{padding:0;margin-bottom:8px}
+.opt{display:flex;align-items:center;gap:10px;margin:0;font-size:14px;font-weight:400;color:var(--ink)}
+.dlg-f{display:flex;justify-content:flex-end;gap:8px;margin-top:8px}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:30;max-width:90vw;padding:12px 18px;border-radius:var(--r2);background:var(--ink);color:#fff;font-size:14px;opacity:0;pointer-events:none;transform:translate(-50%,16px);transition:.2s}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- responsive ---------- */
+@media(max-width:1100px){.app{grid-template-columns:1fr}.sb{display:none}main.c360{grid-template-columns:1fr;padding:16px}main.c360>.cust{position:static;max-height:none;grid-column:1}main.c360>.rt{grid-column:1;grid-row:2}.itg{grid-template-columns:1fr}}
+@media(max-width:640px){.hd{padding:0 16px}.hd .un{display:none}.hd h2{font-size:18px}.content{padding:16px}.fg{grid-template-columns:1fr}.cc-move-row{width:100%}.cc-move-row select{width:100%}.cc-footer{flex-wrap:wrap}}
+@media print{.sb,.hd,.tabrow,.page-add,.cc-footer,.chip{display:none}.app{display:block}.panel[hidden]{display:block!important}main.c360{display:block}main.c360>.cust{position:static;max-height:none;margin-bottom:16px}.card{box-shadow:none}}
+</style></head>
+<body><div class="app">
+<nav class="sb" aria-label="Cedric">
+  <div class="logo-fb" aria-label="Click &amp; Go Holidays"><b>Click &amp; Go</b><span>Holidays</span></div>
+
+  <a class="nav-link" href="#"><svg viewBox="0 0 24 24"><path d="M12 3v9h9a9 9 0 1 1-9-9z"/><path d="M15 3.5a9 9 0 0 1 5.5 5.5H15z"/></svg><span>Executive Dashboard</span></a>
+  <a class="nav-link" href="#"><svg viewBox="0 0 24 24"><path d="M4 19l4-4 3 3 8-9 3 3"/></svg><span>Sales Agent Dashboard</span></a>
+  <a class="nav-link" href="#"><svg viewBox="0 0 24 24"><path d="M4 18V7m4-3v14M20 18V5m-4 13V9"/></svg><span>Sales Manager Dashboard</span></a>
+  <a class="nav-link" href="#"><svg viewBox="0 0 24 24"><path d="M7 18V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v12"/><path d="M3 10h18M9 18h6"/></svg><span>HST Agent Dashboard</span></a>
+  <a class="nav-link" href="#"><svg viewBox="0 0 24 24"><path d="M6 18V8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v10M3 10h18M10 18h4"/></svg><span>HST Manager Dashboard</span></a>
+
+  <hr class="nav-sep"><a href="#" class="nav-link is-active" aria-current="page"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3v2M4.5 7.5l1.4 1.4M19.5 7.5l-1.4 1.4M3 13h2M19 13h2"/><path d="M8 15a5 5 0 1 1 8 0c-.8.8-1 1.5-1 3H9c0-1.5-.2-2.2-1-3z"/></svg><span>Lead Management</span></a>
+  <a href="#" class="nav-link"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="3"/><path d="M9 3h6v4H9zM8 12h8M8 16h5"/></svg><span>Tasks Management</span></a>
+  <a href="#" class="nav-link"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><circle cx="5.5" cy="9" r="2"/><circle cx="18.5" cy="9" r="2"/><path d="M6 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2z"/></svg><span>Customers</span></a>
+  <a href="#" class="nav-link"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg><span>Bookings</span></a>
+  <a href="#" class="nav-link"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="3"/><path d="M9 9h6M9 13h6M3 8h2M3 12h2M3 16h2"/></svg><span>Roster</span></a>
+  <a href="#" class="nav-link"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg><span>Timesheet</span></a>
+  <a href="#" class="nav-link"><svg viewBox="0 0 24 24"><path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5z"/><path d="M4 8l8 6 8-6"/></svg><span>Emails</span></a>
+  <a href="#" class="nav-link"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><span>Calls</span></a>
+  <a href="#" class="nav-link"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 17v-4M12 17V8M16 17v-6"/></svg><span>Reports</span></a>
+  <a href="#" class="nav-link"><svg viewBox="0 0 24 24"><path d="M6 8h12M6 12h12M6 16h8"/><path d="M4 5h16v14H4z"/></svg><span>Workflow</span></a>
+  <a href="#" class="nav-link"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 12h6M12 9v6"/></svg><span>My C&amp;G Enquiries</span></a>
+  <a href="#" class="nav-link"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3l1.5 2.5 2.8-.6.8 2.8 2.7 1-.9 2.8L20.5 13l-2.1 2 .4 2.9-2.9.4-1.3 2.6L12 19.6 9.4 21l-1.3-2.6-2.9-.4.4-2.9-2.1-2 1.8-2.5-.9-2.8 2.7-1 .8-2.8 2.8.6z"/></svg><span>Settings</span></a>
+</nav>
+
+<div><div class="hd"><svg class="bk" width="24" height="24" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg><div class="ib">⚇</div><h2>Lead Management</h2><div class="bell" aria-label="Notifications"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg></div><span class="un">Olivia Carter</span><div class="av" aria-label="Olivia Carter">OC</div></div>
+<main class="c360">
+<aside class="cust card" aria-label="Customer and pricing summary">
+ <div class="cust-top"><div class="avc" id="m_av">JK</div></div>
+ <div class="cid id" id="l_id">#E140789</div>
+ <h2 class="cname" id="l_cu">Mrs Jean Kiberd</h2>
+ <div class="cline"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 8l9 6 9-6"/></svg><span id="l_em">jean.kiberd@example.ie</span></div>
+ <div class="cline"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><span id="l_ph">+353 87 123 4567</span></div>
+ <button class="btn ghost" id="clone" type="button">Clone quote</button>
+ <hr>
+ <div class="kv"><label>Destination</label><b id="l_de">Malta</b></div>
+ <div class="kv"><label>Departure</label><b id="l_dp">17 – 24 Nov 2026 · 7 nights</b></div>
+ <div class="kv"><label for="pt">Package type</label><select id="pt" aria-label="Package type"></select></div>
+ <div class="kv"><label for="pa">Adults</label><input id="pa" type="number" min="0" value="2"></div>
+ <div class="kv"><label for="pc">Children</label><input id="pc" type="number" min="0" value="0"></div>
+ <div class="kv"><label for="pi">Infants</label><input id="pi" type="number" min="0" value="0"></div>
+ <hr>
+ <div class="kv"><label>Total net</label><b id="net"></b></div>
+ <div class="kv"><label>Component margin</label><b id="cm"></b></div>
+ <div class="kv"><label for="mpp">Extra margin / person (€)</label><input id="mpp" type="number" min="0" value="200"></div>
+ <div class="kv"><label>Total margin</label><b id="mg"></b></div>
+ <div class="kv big"><label>Selling price</label><span class="sell" id="sell"></span></div>
+ <div class="kv"><label>Per person</label><b id="pp"></b></div>
+ <button class="btn go" id="send" type="button">Send quote</button>
+</aside>
+<section class="rt">
+ <div class="card bkh">
+  <div class="bkh-heading"><h2 class="bkh-t" id="m_title">Quote to Book</h2><span class="pill" id="st">Draft</span></div>
+  <div class="meta">
+   <div><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.500 3-5 6-5s6 1.500 6 5M16 15c3 0 5 1.500 5 4"/></svg><span><small>Travellers</small><b id="m_tr"></b></span></div>
+   <div><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg><span><small>Quote ref · version</small><b id="ref"></b></span></div>
+   <div><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="3.5"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/></svg><span><small>Assigned to</small><b>Olivia Carter</b></span></div>
+   <div><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="3"/><path d="M8 10h8M8 14h5"/></svg><span><small>Selling price</small><b class="id" id="m_sell"></b></span></div>
+  </div>
+ </div>
+ <div class="tabrow">
+  <div class="tabs card" role="tablist" aria-label="Quote sections">
+   <button type="button" role="tab" data-tab="builder" aria-selected="true">QUOTE BUILDER</button>
+   <button type="button" role="tab" data-tab="itinerary" aria-selected="false">ITINERARY</button>
+   <button type="button" role="tab" data-tab="pricing" aria-selected="false">PRICING</button>
+   <button type="button" role="tab" data-tab="tracking" aria-selected="false">STATUS &amp; TRACKING</button>
+   <button type="button" role="tab" data-tab="related" aria-selected="false">RELATED QUOTES</button>
+   <button type="button" role="tab" data-tab="versions" aria-selected="false">VERSIONS</button>
+   <button type="button" role="tab" data-tab="travelsmart" aria-selected="false">TRAVELSMART</button>
+  </div>
+  <div class="actions"><button class="btn ghost" id="save" type="button">Save draft</button><button class="btn ghost" id="email" type="button">Email quote</button><button class="btn ghost" id="newq" type="button">New quote</button><button class="btn ghost" id="pdf" type="button">Download PDF</button></div>
+ </div>
+ <div class="card content">
+  <div class="panel" data-panel="builder"><h3>Quote Builder</h3>
+   <div class="day-tabs" id="day-tabs" role="tablist" aria-label="Trip days"></div>
+   <div class="days" id="days"></div>
+   <div class="trip"><div class="bar sec-h"><b>Whole trip</b><span>Insurance, car hire, extras and promotions</span></div><div class="page-add" id="whole-trip-add"></div><div class="zone" data-day="t" id="tz"></div></div>
+  </div>
+  <div class="panel it" data-panel="itinerary" hidden><h3>Itinerary</h3><div class="itg"><div><textarea id="itx" rows="5" aria-label="Itinerary text" placeholder="Paste itinerary, one stop per line: date | port | arrive | depart | activity"></textarea><button class="btn" id="itb">Format itinerary</button></div><div class="sc"><table><thead><tr><th>Date</th><th>Port of call</th><th>Arrive</th><th>Depart</th><th>Activity</th></tr></thead><tbody id="itt"><tr><td colspan="5" class="empty">Formatted itinerary appears here.</td></tr></tbody></table></div></div></div>
+  <div class="panel" data-panel="pricing" hidden><h3>Pricing breakdown</h3><div id="lines"></div><p class="note">Extra margin per person and the selling price are in the summary on the left.</p></div>
+  <div class="panel" data-panel="tracking" hidden><h3>Status &amp; tracking</h3><div class="stbar"><label class="fl" for="stat">Booking status</label><select id="stat"></select>
+   <div class="v2"><span>Created</span><b id="t_c"></b></div><div class="v2"><span>Sent</span><b id="t_s">–</b></div><div class="v2"><span>Viewed</span><b id="t_v">–</b></div><div class="v2"><span>Accepted</span><b id="t_a">–</b></div><div class="v2"><label for="t_e">Expires</label><input id="t_e" type="date" value="2026-12-03"></div></div>
+   <button class="btn ghost fit" id="conv" type="button">Convert to booking (Phase 3)</button></div>
+  <div class="panel" data-panel="related" hidden><h3>Related quotes</h3><div class="rel-list" id="rel"></div></div>
+  <div class="panel" data-panel="versions" hidden><h3>Versions</h3><div id="vers"></div></div>
+  <div class="panel" data-panel="travelsmart" hidden><h3>TravelSmart-ready fields</h3><div class="tsg"><div><label>TravelSmart booking ID</label><input data-ts="tsid"></div><div><label>Supplier booking reference</label><input data-ts="sup"></div><div><label>Cruise confirmation number</label><input data-ts="cruise"></div><div><label>Hotel confirmation number</label><input data-ts="hotel"></div><div><label>Airline PNR</label><input data-ts="pnr"></div><div><label>Transfer confirmation number</label><input data-ts="tr"></div></div></div>
+ </div>
+</section>
+</main></div></div>
+<dialog id="dlg" aria-labelledby="dlgt"><h3 class="dlg-t" id="dlgt">Clone quote</h3>
+<div class="fgrp"><label class="fl" for="cr">Source quote reference</label><input id="cr" value="Q-2026-000125"></div>
+<p class="fl dlg-sub">…or search existing quotes</p>
+<div class="fg"><div><label for="f_c">Customer name</label><input id="f_c"></div><div><label for="f_l">Cruise line</label><select id="f_l"></select></div><div><label for="f_s">Ship</label><input id="f_s"></div><div><label for="f_d">Departure date</label><input id="f_d" type="date"></div><div><label for="f_a">Agent</label><input id="f_a"></div><div><label for="f_p">Product type</label><select id="f_p"></select></div></div>
+<div class="sc" id="cres"></div>
+<fieldset class="opts"><legend class="fl">Clone as</legend><label class="opt"><input type="radio" name="cm" value="new" checked> New customer (copy package to a new lead)</label><label class="opt"><input type="radio" name="cm" value="alt"> Alternative option (same lead)</label></fieldset>
+<div class="dlg-f"><button class="btn" id="cno">Cancel</button><button class="btn p" id="cok">Create clone</button></div></dialog>
+<div id="toast" role="status"></div>
+<script>
+var SH={
+"Royal Caribbean International":{
+  "Icon Class":["Icon of the Seas","Star of the Seas"],
+  "Oasis Class":["Oasis of the Seas","Allure of the Seas","Harmony of the Seas","Symphony of the Seas","Wonder of the Seas","Utopia of the Seas"],
+  "Quantum Class":["Quantum of the Seas","Anthem of the Seas","Ovation of the Seas","Spectrum of the Seas","Odyssey of the Seas"],
+  "Freedom Class":["Freedom of the Seas","Liberty of the Seas","Independence of the Seas"],
+  "Voyager Class":["Voyager of the Seas","Explorer of the Seas","Adventure of the Seas","Navigator of the Seas","Mariner of the Seas"],
+  "Radiance Class":["Radiance of the Seas","Brilliance of the Seas","Serenade of the Seas","Jewel of the Seas"],
+  "Vision Class":["Vision of the Seas","Enchantment of the Seas","Grandeur of the Seas","Rhapsody of the Seas"]
+},
+"MSC Cruises":{
+  "World Class":["MSC World Europa","MSC World America"],
+  "Meraviglia Class":["MSC Meraviglia","MSC Bellissima","MSC Grandiosa","MSC Virtuosa"],
+  "Meraviglia Plus Class":["MSC Euribia"],
+  "Seaside Class":["MSC Seaside","MSC Seaview","MSC Seashore","MSC Seascape"],
+  "Musica Class":["MSC Musica","MSC Orchestra","MSC Poesia","MSC Magnifica"],
+  "Fantasia Class":["MSC Fantasia","MSC Splendida","MSC Divina","MSC Preziosa"],
+  "Lirica Class":["MSC Lirica","MSC Opera","MSC Armonia","MSC Sinfonia"]
+},
+"Virgin Voyages":{
+  "Lady Ships":["Scarlet Lady","Valiant Lady","Resilient Lady","Brilliant Lady"]
+},
+"Celebrity Cruises":{
+  "Edge Class":["Celebrity Edge","Celebrity Apex","Celebrity Beyond","Celebrity Ascent","Celebrity Xcel"],
+  "Solstice Class":["Celebrity Solstice","Celebrity Equinox","Celebrity Eclipse","Celebrity Silhouette","Celebrity Reflection"],
+  "Millennium Class":["Celebrity Millennium","Celebrity Infinity","Celebrity Summit","Celebrity Constellation"]
+},
+"Norwegian Cruise Line (NCL)":{
+  "Prima Plus Class":["Norwegian Aqua","Norwegian Luna"],
+  "Prima Class":["Norwegian Prima","Norwegian Viva"],
+  "Breakaway Plus Class":["Norwegian Encore","Norwegian Bliss","Norwegian Joy","Norwegian Escape"],
+  "Breakaway Class":["Norwegian Getaway","Norwegian Breakaway"],
+  "Jewel Class":["Norwegian Gem","Norwegian Pearl","Norwegian Jade","Norwegian Jewel"],
+  "Dawn Class":["Norwegian Dawn","Norwegian Star"],
+  "Sun Class":["Norwegian Sun","Norwegian Sky"],
+  "Legacy Ships":["Norwegian Spirit","Norwegian Epic"]
+},
+"Princess Cruises":{
+  "Sphere Class":["Sun Princess","Star Princess"],
+  "Royal Class":["Discovery Princess","Enchanted Princess","Sky Princess","Majestic Princess","Regal Princess","Royal Princess"],
+  "Grand Class":["Caribbean Princess","Crown Princess","Emerald Princess","Ruby Princess","Sapphire Princess","Diamond Princess"],
+  "Coral Class":["Coral Princess","Island Princess"],
+  "Sun Class":["Sun Princess","Sea Princess","Dawn Princess"]
+}
+};
+var AP=["Dublin","Cork","Shannon","Belfast","Malta (MLA)","Barcelona","Rome (Fiumicino)","Miami","Orlando","New York (JFK)","Other"];
+var PT=["Cruise Only","Cruise Company Fly Cruise","Click&Go Packaged Fly Cruise","Cruise & Stay (pre, post or both)","USA Tailor Made","Worldwide Tailor Made","Sun Package","City Break","Disneyland Paris (DLP)","River Cruise","Luxury Cruise","Other"];
+var T={flight:["Flight","#3b6fd4"],hotel:["Accommodation","#b9791a"],cruise:["Cruise","#5b3c8c"],transfer:["Transfer","#7a5bb5"],extra:["Extra","#4c8f3a"],insurance:["Insurance","#2f8f83"],car:["Car hire","#b4411f"],promo:["Promotion","#d6246e"]};
+var CB=["Interior","Ocean View","Balcony","Suite","Studio"];
+var INC=["Drinks package","Gratuities","Wi-Fi","Shore excursion credit","Bar tab","Speciality dining","Speciality dining package","Onboard credit","Group fitness classes","Fun pass","Birthday cake"];
+var F={flight:[["pnr","PNR / GDS ref","t"],["airline","Airline","p"],["no","Flight no.","t"],["from","Departure airport","p"],["to","Arrival airport","p"],["depd","Departure date","d"],["dep","Departure time","tm"],["arrd","Arrival date","d"],["arr","Arrival time","tm"],["cls","Booking class","p"],["stop","Stopover / routing (e.g. DUB-JFK-MCO 0830-1330, 1430-1530)","t",0,1]],
+hotel:[["name","Hotel name","t"],["sup","Supplier","p"],["dest","Destination","t"],["cin","Check-in date","d"],["nights","Nights","n"],["time","Check-in time","tm"]],
+cruise:[["line","Cruise company","s",Object.keys(SH)],["ship","Cruise ship name","ship"],["port","Departure port (embarkation)","t"],["depd","Cruise departure date","d"],["nights","Cruise duration (nights)","n"],["exp","Experience (MSC only)","exp"],["dine","Dining type","s",["Full board","All inclusive"]],["inc","Inclusions (tick any)","m",INC,1],["info","Additional info (free text)","ta",0,1]],
+transfer:[["sup","Supplier","p"],["type","Transfer type","s",["Shared Shuttle","Private Transfer","Private Luxury Transfer","Special Wheelchair Adapted Transfer","Cruise Transfer","Rail Transfer"]],["date","Date","d"],["time","Time","tm"],["from","From (airport, hotel, port)","t",0,0,"e.g. Airport, Rialto Hotel, Port"],["to","To (hotel, port, airport)","t",0,0,"e.g. Rialto Hotel, Barcelona Cruise Port"]],
+extra:[["kind","Extra","s",["Drinks package","Dining package","Shore excursion","Park tickets","Event tickets","Onboard credit","Gratuities","Other service"]],["info","Details","t"]],
+insurance:[["sup","Supplier","s",["Blue Insurance"]],["kind","Insurance type","s",["Premier","Premier Plus"]]],
+car:[["sup","Supplier","p"],["ctype","Car type","p"],["rate","Rate plan","s",["Fully Inclusive","Fully Inclusive with GPS","Gold","Gold with GPS"]],["drv","Lead driver","t"],["pick","Pick-up location","p"],["pickd","Pick-up date","d"],["drop","Drop-off location","p"],["dropd","Drop-off date","d"],["cinfo","Important / additional info","ta",0,1]],
+promo:[["kind","Promotion","s",["Free drinks package","Onboard credit","Reduced deposit","Free gratuities","Kids go free","Flight upgrade offer","Free flights","Other"]],["by","Book by","d"]]};
+var RW={cruise:[["Cabin type","cabin","s",CB],["Cabin category","cat","t"],["Adults","a","n"],["Children","c","n"],["Infants","i","n"],["Net €","net","n"],["Sell € (opt)","sell","n"],["Cabin description (free text)","desc","ta"]],hotel:[["Room type","room","p"],["Supplier","sup","p"],["Occupancy (guests)","g","n"],["Board basis","board","p"],["Net €","net","n"],["Sell € (opt)","sell","n"]]};
+var AG="Olivia Carter",TD="03 Nov 2026";
+var TPL={"Cruise Only":"Cruise","Cruise Company Fly Cruise":"Fly Cruise","Click&Go Packaged Fly Cruise":"Fly Cruise","Cruise & Stay (pre, post or both)":"Cruise & Stay","USA Tailor Made":"USA","Worldwide Tailor Made":"Worldwide","Sun Package":"Sun","City Break":"City","Disneyland Paris (DLP)":"DLP","River Cruise":"Cruise","Luxury Cruise":"Luxury Cruise","Other":"Cruise"};
+var STAT=["Draft Quote","Sent Quote","Accepted Quote","Pending Confirmation","Confirmed Booking","Cancelled"];
+var QS=[{r:"Q-2026-000125",c:"Mrs Jean Kiberd",l:"MSC Cruises",s:"MSC Seaview",d:"2026-11-17",a:"Olivia Carter",p:"Cruise & Stay (pre, post or both)"},{r:"Q-2026-000098",c:"Mr Liam Doyle",l:"Royal Caribbean International",s:"Wonder of the Seas",d:"2027-02-06",a:"Anita Hanley",p:"Cruise Company Fly Cruise"},{r:"Q-2026-000102",c:"Ms Aoife Byrne",l:"Princess Cruises",s:"Sun Princess",d:"2027-05-14",a:"Olivia Carter",p:"Click&Go Packaged Fly Cruise"},{r:"Q-2026-000110",c:"Mr Sean Murphy",l:"Celebrity Cruises",s:"Celebrity Beyond",d:"2027-03-20",a:"Anita Hanley",p:"Luxury Cruise"},{r:"Q-2026-000117",c:"Mrs Mary Walsh",l:"Norwegian Cruise Line (NCL)",s:"Norwegian Prima",d:"2027-09-02",a:"Olivia Carter",p:"USA Tailor Made"}];
+var S={comps:[],uid:0,ref:125,ver:1,sent:false,vers:[{v:1,d:TD,a:AG,n:"Quote created"}],rel:[{ref:"Q-2026-000125",type:"Original",orig:"–",a:AG,d:TD}],status:"Draft Quote",trk:{c:TD,s:"–",a:"–"}};
+var base=new Date(2026,10,17);
+var activeDay=0;
+function add(t,day,d,rows){S.comps.push({id:++S.uid,t:t,day:day,open:false,d:d||{},rows:rows||[]})}
+add("flight",0,{airline:"Aer Lingus",no:"EI 656",from:"Dublin",to:"Malta (MLA)",depd:"2026-11-17",dep:"07:15",arrd:"2026-11-17",arr:"11:10",cls:"Economy",net:640});
+add("transfer",0,{sup:"Hoppa",type:"Shared Shuttle",date:"2026-11-17",from:"Malta Airport (MLA)",to:"Hotel Phoenicia",net:40});
+add("hotel",0,{name:"Hotel Phoenicia",sup:"Hotelbeds",dest:"Valletta",cin:"2026-11-17",nights:"1",net:0},[{room:"Superior",sup:"Hotelbeds",g:"2",board:"Bed & breakfast",net:180,sell:180}]);
+add("cruise",1,{line:"MSC Cruises",ship:"MSC Seaview",port:"Valletta",depd:"2026-11-18",nights:"7",dine:"Full board",exp:"Aurea",inc:["Wi-Fi"]},[{cabin:"Balcony",cat:"Aurea Balcony",a:"2",c:"0",i:"0",net:1840,sell:1840}]);
+add("transfer",8,{sup:"Hoppa",type:"Cruise Transfer",date:"2026-11-25",from:"Valletta Cruise Port",to:"Malta Airport (MLA)",net:35});
+add("insurance","t",{sup:"Blue Insurance",kind:"Premier",net:60});
+add("promo","t",{kind:"Free drinks package",by:"2026-11-30",net:0});
+var ORIG=JSON.parse(JSON.stringify(S.comps));
+function E(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;")}
+function O(a,v){return'<option value="">Select…</option>'+a.map(function(o){return"<option"+(o===v?" selected":"")+">"+E(o)+"</option>"}).join("")}
+function net(c){var n=c.rows.length?c.rows.reduce(function(a,r){return a+(+r.net||0)},0):+c.d.net||0;return n}
+function mtxt(c){var s=sell(c),n=net(c);return eur(s)+" <small>margin "+eur(s-n)+" ("+(s?Math.round((s-n)/s*100):0)+"%)</small>"}
+function sell(c){if(c.d.sell!==undefined&&c.d.sell!=="")return +c.d.sell;if(c.rows&&c.rows.length){var anySell=c.rows.some(function(r){return r.sell!==undefined&&r.sell!==""});if(anySell)return c.rows.reduce(function(a,r){return a+(r.sell!==undefined&&r.sell!==""?+r.sell:+r.net||0)},0)}return net(c)}
+function eur(n){return"€"+Math.round(n).toLocaleString("en-IE")}
+function shipOpt(line,selected){var g=SH[line];if(!g)return'<option value="">Pick a cruise company first</option>';var h='<option value="">Select ship…</option>';for(var k in g){h+='<optgroup label="'+E(k)+'">';g[k].forEach(function(s){h+='<option value="'+E(s)+'"'+(s===selected?" selected":"")+">"+E(s)+"</option>"});h+='</optgroup>'}return h}
+function PEND(v){return v?'<option selected>'+E(v)+'</option><option value="" disabled>More options to be decided</option>':'<option value="" selected disabled>To be decided</option>'}
+function fld(c,f,ri){var o=ri===undefined?c.d:c.rows[ri],k=f[1],t=f[2],a=ri===undefined?"":' data-r="'+ri+'"',x;
+ if(t==="s")x='<select data-k="'+k+'"'+a+'>'+O(f[3],o[k])+"</select>";
+ else if(t==="p")x='<select data-k="'+k+'"'+a+(o[k]?"":' class="pend"')+">"+PEND(o[k])+"</select>";
+ else if(t==="ship")x='<select data-k="ship"'+(c.d.line?"":" disabled")+">"+shipOpt(c.d.line,o.ship)+"</select>";
+ else if(t==="exp"){var ms=c.d.line==="MSC Cruises";x=ms?'<select data-k="exp"'+(o.exp?"":' class="pend"')+">"+PEND(o.exp)+"</select>":'<select data-k="exp" disabled><option>Not applicable (MSC only)</option></select>'}
+ else if(t==="dl")x='<input data-k="'+k+'"'+a+' list="'+f[3]+'" value="'+E(o[k])+'" placeholder="'+E(f[5]||"Type or pick…")+'">';
+ else if(t==="m"){var cur=o[k]||[];x='<div class="chk">'+f[3].map(function(v){return"<label><input type=\"checkbox\" data-k=\""+k+"\" value=\""+E(v)+"\""+(cur.indexOf(v)>-1?" checked":"")+"> "+E(v)+"</label>"}).join("")+"</div>"}
+ else if(t==="ta")x='<textarea rows="2" data-k="'+k+'"'+a+">"+E(o[k])+"</textarea>";
+ else x='<input data-k="'+k+'"'+a+' type="'+(t==="t"?"text":t==="d"?"date":t==="tm"?"time":"number")+'" value="'+E(o[k])+'"'+(f[5]?' placeholder="'+E(f[5])+'"':"")+">";
+ return x}
+function body(c){var h="";
+ F[c.t].forEach(function(f){h+='<div'+(f[4]?' class="w"':'')+'><label>'+f[1]+"</label>"+fld(c,[0,f[0],f[2],f[3],f[4],f[5]])+(f[0]==="pnr"?'<button class="mini" data-a="pnr" >Fetch flight from PNR / GDS</button>':"")+"</div>"});
+ if(RW[c.t]){c.rows.forEach(function(r,i){h+='<div class="row">'+RW[c.t].map(function(f){return"<div"+(f[2]==="ta"?' style="grid-column:1/-1"':'')+"><label>"+f[0]+"</label>"+fld(c,[0,f[1],f[2],f[3]],i)+"</div>"}).join("")+'<button class="mini" data-a="delrow" data-i="'+i+'">Remove</button></div>'});
+  h+='<div class="w"><button class="mini" data-a="addrow">+ '+(c.t==="cruise"?"Add cabin":"Add room")+"</button></div>"}
+ else h+='<div><label>'+(c.t==="car"?"Net total (USD $)":c.t==="flight"?"Net € (total for all pax)":"Net € (total)")+'</label><input data-k="net" type="number" min="0" value="'+E(c.d.net)+'"></div>';
+ h+='<div class="w sell-field"><label>Selling price € (auto = net; editable)</label><input data-k="sell" type="number" min="0" value="'+E(c.d.sell)+'" placeholder="'+Math.round(sell(c))+'"></div>';
+ return h}
+function sum(c){var d=c.d;return c.t==="flight"?(d.from||"?")+" → "+(d.to||"?")+" "+(d.dep||""):c.t==="hotel"?(d.name||"Hotel")+" · "+(d.nights||"?")+"n · "+c.rows.length+" room(s)":c.t==="cruise"?(d.ship||"Choose ship")+" · "+(d.nights||"?")+"n · "+c.rows.length+" cabin(s)":(d.kind||d.type||d.sup||"Details")}
+function moveOptions(c,nd){var h="";for(var i=0;i<nd;i++){var dt=new Date(base.getTime()+i*864e5);h+='<option value="'+i+'"'+(c.day===i?" selected":"")+'>Day '+(i+1)+" · "+dt.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"})+"</option>"}return h+'<option value="t"'+(c.day==="t"?" selected":"")+'>Whole trip</option>'}
+function card(c,nd){var nm=E(T[c.t][0]),duplicate='<button type="button" class="ct-duplicate" data-a="dup">Duplicate</button>',del='<button type="button" class="ct-delete" data-a="del" aria-label="Delete '+nm+' card" title="Delete"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M5 7l1 14h12l1-14M9 7V4h6v3"/></svg></button>';
+ return'<div class="cc" data-id="'+c.id+'" style="--c:'+T[c.t][1]+'"><div class="ct" data-a="open" tabindex="0" role="button" aria-expanded="'+(c.open?"true":"false")+'" aria-label="'+(c.open?"Collapse ":"Expand ")+nm+' card"><div class="ct-main"><b>'+nm+'</b><span>'+E(sum(c))+'</span></div><em>'+mtxt(c)+'</em><i class="ct-chev"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></i></div>'+(c.open?'<div class="cb">'+body(c)+'</div>':"")+'<div class="cc-footer"><label class="cc-move-row">Move to<select data-move aria-label="Move '+nm+' card to day">'+moveOptions(c,nd)+'</select></label>'+duplicate+del+'</div></div>'}
+function orderedCards(cs){var order=Object.keys(T);return cs.sort(function(a,b){return order.indexOf(a.t)-order.indexOf(b.t)||S.comps.indexOf(a)-S.comps.indexOf(b)})}
+function addControls(day,label){return'<span class="page-add-label">Add to '+label+'</span>'+Object.keys(T).map(function(k){return'<button type="button" class="chip" data-new="'+k+'" data-add-day="'+day+'">+ '+T[k][0]+"</button>"}).join("")}
+function render(){var h="",tabs="",i;
+ var nd=Math.max(8,1+Math.max.apply(null,S.comps.map(function(c){return typeof c.day==="number"?c.day:0})));
+ if(activeDay>=nd)activeDay=nd-1;
+ for(i=0;i<nd;i++){var dt=new Date(base.getTime()+i*864e5),dateLabel=dt.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"});
+  tabs+='<button type="button" class="day-tab" role="tab" id="day-tab-'+i+'" aria-controls="day-panel" aria-selected="'+(i===activeDay)+'" tabindex="'+(i===activeDay?"0":"-1")+'" data-day-tab="'+i+'"><b>Day '+(i+1)+'</b><span>'+dateLabel+"</span></button>"}
+ var selectedDate=new Date(base.getTime()+activeDay*864e5),selectedCards=orderedCards(S.comps.filter(function(c){return c.day===activeDay}));
+ h+='<div class="day-panel" id="day-panel" role="tabpanel" aria-labelledby="day-tab-'+activeDay+'"><div class="dh"><span>Day '+(activeDay+1)+'</span><b>'+selectedDate.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"})+'</b></div><div class="page-add">'+addControls(activeDay,"Day "+(activeDay+1))+'</div><div class="zone" data-day="'+activeDay+'">'+(selectedCards.length?selectedCards.map(function(c){return card(c,nd)}).join(""):'<span class="hint">No components added to this day yet</span>')+"</div></div>";
+ document.getElementById("day-tabs").innerHTML=tabs;
+ document.getElementById("days").innerHTML=h;
+ document.getElementById("whole-trip-add").innerHTML=addControls("t","Whole trip");
+ var tc=orderedCards(S.comps.filter(function(c){return c.day==="t"}));document.getElementById("tz").innerHTML=tc.length?tc.map(function(c){return card(c,nd)}).join(""):'<span class="hint">No whole-trip components added yet</span>';price()}
+function price(){var pax=Math.max(1,+document.getElementById("pa").value+ +document.getElementById("pc").value||1),mp=+document.getElementById("mpp").value||0,n=0,sl=0,L="";
+ S.comps.forEach(function(c){n+=net(c);sl+=sell(c);L+='<div class="pl"><span>'+T[c.t][0]+"</span><span>"+eur(sell(c))+"</span></div>"});
+ var m=sl-n+mp*pax,sp=sl+mp*pax;document.getElementById("lines").innerHTML=L;document.getElementById("net").textContent=eur(n);document.getElementById("cm").textContent=eur(sl-n);
+ document.getElementById("mg").textContent=eur(m)+" · "+(sp?Math.round(m/sp*100):0)+"%";document.getElementById("sell").textContent=eur(sp);document.getElementById("pp").textContent=eur(sp/pax);
+ document.getElementById("vers").innerHTML=S.vers.slice().reverse().map(function(v){return'<div class="v"><b>v'+v.v+"</b> · "+v.d+" · "+E(v.a||AG)+"<br>"+E(v.n)+"</div>"}).join("");
+ document.getElementById("ref").textContent="Q-2026-000"+S.ref+" · v"+S.ver;
+ document.getElementById("t_c").textContent=S.trk.c;document.getElementById("t_s").textContent=S.trk.s;document.getElementById("t_a").textContent=S.trk.a;
+ document.getElementById("rel").innerHTML=S.rel.map(function(r){return'<div class="rq"><div class="rq-t"><b>'+E(r.ref)+'</b><span class="tag">'+E(r.type)+'</span></div><div class="rq-m">'+(r.orig&&r.orig!=="–"?"Cloned from "+E(r.orig)+" · ":"")+E(r.a)+" · "+E(r.d)+"</div></div>"}).join("")}
+function dirty(){S.sent=false;st("Draft Quote")}
+function st(x){S.status=x;var p=document.getElementById("st");p.textContent=x;p.className="pill"+(x==="Draft Quote"||x==="Cancelled"?"":" sent");document.getElementById("stat").value=x;document.getElementById("send").textContent=S.sent?"Resend quote":"Send quote"}
+function toast(m){var t=document.getElementById("toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(function(){t.classList.remove("on")},2600)}
+function get(el){var k=el.closest(".cc");return S.comps.filter(function(c){return c.id===+k.dataset.id})[0]}
+var D=document;D.getElementById("stat").innerHTML=STAT.map(function(x){return"<option>"+x+"</option>"}).join("");D.getElementById("f_l").innerHTML=O(Object.keys(SH),"");D.getElementById("f_p").innerHTML=O(PT,"");
+D.getElementById("day-tabs").addEventListener("click",function(e){var tab=e.target.closest("[data-day-tab]");if(!tab)return;activeDay=+tab.dataset.dayTab;render();D.getElementById("day-tab-"+activeDay).focus()});
+D.getElementById("day-tabs").addEventListener("keydown",function(e){var tab=e.target.closest("[data-day-tab]");if(!tab)return;var count=D.querySelectorAll("#day-tabs [data-day-tab]").length,next=+tab.dataset.dayTab;
+ if(e.key==="ArrowRight")next=(next+1)%count;else if(e.key==="ArrowLeft")next=(next+count-1)%count;else if(e.key==="Home")next=0;else if(e.key==="End")next=count-1;else return;
+ e.preventDefault();activeDay=next;render();D.getElementById("day-tab-"+next).focus()});
+D.getElementById("pt").innerHTML=PT.map(function(p){return"<option"+(p==="Cruise & Stay (pre, post or both)"?" selected":"")+">"+E(p)+"</option>"}).join("");
+function addNew(k,day){add(k,day,k==="cruise"?{dine:"Full board"}:{},RW[k]?[{}]:[]);S.comps[S.comps.length-1].open=true;if(typeof day==="number")activeDay=day;render();dirty()}
+D.querySelector("main").addEventListener("click",function(e){var b=e.target.closest("[data-new][data-add-day]");if(!b)return;addNew(b.dataset.new,b.dataset.addDay==="t"?"t":+b.dataset.addDay)});
+function onEdit(e){var t=e.target,k=t.dataset.k;if(t.dataset.move!==undefined){var moved=get(t);moved.day=t.value==="t"?"t":+t.value;if(typeof moved.day==="number")activeDay=moved.day;render();dirty();toast(T[moved.t][0]+" moved to "+(moved.day==="t"?"Whole trip":"Day "+(moved.day+1)));return}if(!k)return;var c=get(t);if(t.type==="checkbox"){c.d[k]=[].slice.call(t.closest(".chk").querySelectorAll("input:checked")).map(function(v){return v.value})}else if(t.dataset.r!==undefined)c.rows[+t.dataset.r][k]=t.value;else c.d[k]=t.value;
+ if(k==="line"&&t.tagName==="SELECT"){c.d.ship="";render()}else{var cc=t.closest(".cc");cc.querySelector(".ct span").textContent=sum(c);cc.querySelector(".ct em").innerHTML=mtxt(c);price()}dirty()}
+D.querySelector("main").addEventListener("input",onEdit);D.querySelector("main").addEventListener("change",function(e){if(e.target.tagName==="SELECT")onEdit(e);moveByDate(e.target)});
+var DK={flight:"depd",hotel:"cin",cruise:"depd",transfer:"date"};
+function moveByDate(t){var k=t.dataset&&t.dataset.k;if(!k||t.dataset.r!==undefined||t.type!=="date")return;var c=get(t);if(!c||DK[c.t]!==k||typeof c.day!=="number"||!t.value)return;
+ var p=t.value.split("-"),n=Math.round((Date.UTC(+p[0],p[1]-1,+p[2])-Date.UTC(base.getFullYear(),base.getMonth(),base.getDate()))/864e5);
+ if(n<0||n>29){toast("That date is outside the trip window, so the card stays on Day "+(c.day+1));return}
+ if(n===c.day)return;c.day=n;activeDay=n;render();var el=D.querySelector('.cc[data-id="'+c.id+'"] [data-k="'+k+'"]');if(el)el.focus();toast(T[c.t][0]+" moved to Day "+(n+1))}
+D.querySelector("main").addEventListener("click",function(e){var b=e.target.closest("[data-a]");if(!b||!b.closest(".cc"))return;var c=get(b),a=b.dataset.a;
+ if(a==="del"&&b.classList.contains("ct-delete")){e.stopPropagation();if(window.confirm("Remove this "+T[c.t][0].toLowerCase()+" card from the quote?")){S.comps.splice(S.comps.indexOf(c),1);render();dirty()}return}
+ if(a==="open"||a==="collapse"){c.open=a==="open"?!c.open:false}
+ else if(a==="del")S.comps.splice(S.comps.indexOf(c),1);
+ else if(a==="dup")S.comps.splice(S.comps.indexOf(c)+1,0,{id:++S.uid,t:c.t,day:c.day,open:false,d:Object.assign({},c.d),rows:c.rows.map(function(r){return Object.assign({},r)})});
+ else if(a==="addrow")c.rows.push({});else if(a==="delrow")c.rows.splice(+b.dataset.i,1);
+ else if(a==="pnr"){
+   var raw=(c.d.pnr||"").trim().toUpperCase();
+   var pnrData={airline:"Aer Lingus",no:"EI 656",from:"Dublin",to:"Malta (MLA)",depd:"2026-11-17",dep:"07:15",arrd:"2026-11-17",arr:"11:10",cls:"Economy"};
+   if(raw){
+     if(/FR|RYANAIR/.test(raw))pnrData.airline="Ryanair";
+     else if(/KM|AIR MALTA/.test(raw))pnrData.airline="Air Malta";
+     else if(/DL|DELTA/.test(raw))pnrData.airline="Delta";
+     else if(/UA|UNITED/.test(raw))pnrData.airline="United";
+     else if(/BA|BRITISH/.test(raw))pnrData.airline="British Airways";
+     else if(/EI|AER LINGUS/.test(raw))pnrData.airline="Aer Lingus";
+     var fnMatch=raw.match(/([A-Z0-9]{2})\s*(\d{2,4})/);
+     if(fnMatch)pnrData.no=fnMatch[1]+" "+fnMatch[2];
+     var apMatch=raw.match(/\b(DUB|ORK|SNN|BFS|MLA|BCN|FCO|MIA|MCO|JFK)\b.*?\b(DUB|ORK|SNN|BFS|MLA|BCN|FCO|MIA|MCO|JFK)\b/);
+     if(apMatch){
+       var mapAP={DUB:"Dublin",ORK:"Cork",SNN:"Shannon",BFS:"Belfast",MLA:"Malta (MLA)",BCN:"Barcelona",FCO:"Rome (Fiumicino)",MIA:"Miami",MCO:"Orlando",JFK:"New York (JFK)"};
+       if(mapAP[apMatch[1]])pnrData.from=mapAP[apMatch[1]];
+       if(mapAP[apMatch[2]])pnrData.to=mapAP[apMatch[2]];
+     }
+     var tmMatch=raw.match(/(\d{2}:?\d{2})\s*[-\/\s]+\s*(\d{2}:?\d{2})/);
+     if(tmMatch){pnrData.dep=tmMatch[1].replace(/(\d{2})(\d{2})/,"$1:$2");pnrData.arr=tmMatch[2].replace(/(\d{2})(\d{2})/,"$1:$2")}
+   }
+   Object.assign(c.d,pnrData);
+   toast("Flight details parsed from PNR / GDS record ("+(c.d.pnr||"EI 656")+")");
+ }
+ render();dirty()});
+["pa","pc","pi","mpp","pt"].forEach(function(i){D.getElementById(i).addEventListener("input",function(){price();dirty()})});
+function miss(){var pt=D.getElementById("pt").value,m=[];if(!pt)m.push("package type");
+ if(!/USA|Worldwide|Sun|City|DLP|Other/.test(pt)){var cr=S.comps.filter(function(c){return c.t==="cruise"});if(!cr.length)m.push("cruise component");
+  cr.forEach(function(c){[["line","cruise company"],["ship","ship"],["port","departure port"],["depd","departure date"],["nights","duration"]].forEach(function(k){if(!c.d[k[0]]&&m.indexOf(k[1])<0)m.push(k[1])});if((!c.rows.length||c.rows.some(function(r){return!r.cabin}))&&m.indexOf("cabin type")<0)m.push("cabin type")})}
+ return m}
+D.getElementById("save").onclick=function(){S.ver++;S.vers.push({v:S.ver,d:TD,a:AG,n:"Saved draft · "+S.comps.length+" components"});st("Draft Quote");price();toast("Draft saved to the lead’s Quotations")};
+D.getElementById("newq").onclick=function(){S.comps=[];S.ref++;S.ver=1;S.sent=false;S.trk={c:TD,s:"–",a:"–"};S.rel=[{ref:"Q-2026-000"+S.ref,type:"Original",orig:"–",a:AG,d:TD}];S.vers=[{v:1,d:TD,a:AG,n:"Quote created"}];activeDay=0;st("Draft Quote");render();toast("New blank quote created")};
+function doSend(){if(!S.comps.length){toast("Add a component before sending");return false}var m=miss();if(m.length){toast("Complete before sending: "+m.join(", "));return false}
+ S.ver++;S.vers.push({v:S.ver,d:TD,a:AG,n:S.sent?"Resent to customer":"Sent to customer"});S.sent=true;S.trk.s=TD;st("Sent Quote");price();return true}
+D.getElementById("send").onclick=function(){if(doSend())toast("Quote sent. Cruise Quote workflow started")};
+D.getElementById("email").onclick=function(){if(doSend()){toast("Quote emailed using the "+(TPL[D.getElementById("pt").value]||"Cruise")+" template");location.href="mailto:jean.kiberd@example.ie?subject="+encodeURIComponent("Your Click&Go quote Q-2026-000"+S.ref)}};
+D.getElementById("pdf").onclick=function(){window.print()};
+D.getElementById("stat").onchange=function(e){S.status=e.target.value;if(S.status==="Accepted Quote")S.trk.a=TD;st(S.status);price()};
+D.getElementById("conv").onclick=function(){toast(S.status==="Accepted Quote"?"TravelSmart-ready booking structure prepared (live push arrives in Phase 3). Alternatives stay as quotes.":"Only the accepted quote version can be converted to a booking")};
+var dl=D.getElementById("dlg");
+function rq(){var g=function(i){return D.getElementById(i).value.toLowerCase()},r=QS.filter(function(q){return(!g("f_c")||q.c.toLowerCase().indexOf(g("f_c"))>-1)&&(!g("f_l")||q.l.toLowerCase()===g("f_l"))&&(!g("f_s")||q.s.toLowerCase().indexOf(g("f_s"))>-1)&&(!g("f_d")||q.d===g("f_d"))&&(!g("f_a")||q.a.toLowerCase().indexOf(g("f_a"))>-1)&&(!g("f_p")||q.p.toLowerCase()===g("f_p"))});
+ D.getElementById("cres").innerHTML="<table><thead><tr><th>Quote</th><th>Customer</th><th>Ship</th><th>Departs</th><th>Agent</th></tr></thead><tbody>"+(r.map(function(q){return'<tr data-r="'+q.r+'"><td>'+q.r+"</td><td>"+q.c+"</td><td>"+q.s+"</td><td>"+q.d+"</td><td>"+q.a+"</td></tr>"}).join("")||'<tr><td colspan="5">No matching quotes</td></tr>')+"</tbody></table>"}
+["f_c","f_l","f_s","f_d","f_a","f_p"].forEach(function(i){D.getElementById(i).addEventListener("input",rq)});
+D.getElementById("cres").onclick=function(e){var t=e.target.closest("tr[data-r]");if(t){D.querySelectorAll("#cres tr.sel").forEach(function(x){x.classList.remove("sel")});t.classList.add("sel");D.getElementById("cr").value=t.dataset.r}};
+D.getElementById("clone").onclick=function(){rq();dl.showModal()};D.getElementById("cno").onclick=function(){dl.close()};
+var CP={
+"Q-2026-000098":{dest:"Caribbean",port:"Port Canaveral",n:7,pre:0,cabin:"Balcony",cat:"Standard Balcony",net:2150,apt:"Orlando",ins:"Premier"},
+"Q-2026-000102":{dest:"Mediterranean",port:"Civitavecchia (Rome)",n:7,pre:1,cabin:"Balcony",cat:"Standard Balcony",net:1760,apt:"Rome (Fiumicino)",ins:"Premier"},
+"Q-2026-000110":{dest:"Mediterranean",port:"Barcelona",n:7,pre:2,cabin:"Suite",cat:"Sky Suite",net:3890,apt:"Barcelona",ins:"Premier Plus"},
+"Q-2026-000117":{dest:"USA",port:"New York",n:7,pre:3,cabin:"Balcony",cat:"Standard Balcony",net:2480,apt:"New York (JFK)",ins:"Premier"}};
+function iso(st,o){var d=new Date(st.getTime()+o*864e5);return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
+function mk(t,day,d,rows){return{id:++S.uid,t:t,day:day,open:false,d:d,rows:rows||[]}}
+function pkgFor(q){var c=CP[q.r],pre=c.pre,sail=new Date(q.d+"T00:00:00"),st=new Date(sail.getTime()-pre*864e5),n=c.n,o=[],ret=pre+n;
+ o.push(mk("flight",0,{airline:"Aer Lingus",no:"TBA",from:"Dublin",to:c.apt,depd:iso(st,0),arrd:iso(st,0),cls:"Economy",net:520}));
+ o.push(mk("transfer",0,{sup:"Hoppa",type:pre?"Shared Shuttle":"Cruise Transfer",date:iso(st,0),from:"Arrival airport",to:pre?"Pre-cruise hotel":c.port+" Cruise Port",net:40}));
+ if(pre){o.push(mk("hotel",0,{name:"Pre-cruise hotel (TBC)",sup:"Hotelbeds",dest:c.port,cin:iso(st,0),nights:String(pre)},[{room:"Superior",sup:"Hotelbeds",g:"2",board:"Bed & breakfast",net:90*pre,sell:90*pre}]));
+  o.push(mk("transfer",pre,{sup:"Hoppa",type:"Cruise Transfer",date:iso(st,pre),from:"Pre-cruise hotel",to:c.port+" Cruise Port",net:30}))}
+ var cr={line:q.l,ship:q.s,port:c.port,depd:q.d,nights:String(n),dine:"Full board",inc:[]};
+ o.push(mk("cruise",pre,cr,[{cabin:c.cabin,cat:c.cat,a:"2",c:"0",i:"0",net:c.net,sell:c.net}]));
+ o.push(mk("transfer",ret,{sup:"Hoppa",type:"Cruise Transfer",date:iso(st,ret),from:c.port+" Cruise Port",to:"Departure airport",net:35}));
+ o.push(mk("flight",ret,{airline:"Aer Lingus",no:"TBA",from:c.apt,to:"Dublin",depd:iso(st,ret),arrd:iso(st,ret),cls:"Economy",net:480}));
+ o.push(mk("insurance","t",{sup:"Blue Insurance",kind:c.ins,net:60}));
+ return{comps:o,start:st,total:ret}}
+function fmtRange(st,n){var e=new Date(st.getTime()+n*864e5),f=function(d,o){return d.toLocaleDateString("en-GB",o)};
+ return(st.getMonth()===e.getMonth()?f(st,{day:"numeric"}):f(st,{day:"numeric",month:"short"}))+" – "+f(e,{day:"numeric",month:"short",year:"numeric"})}
+D.getElementById("cok").onclick=function(){
+ var m=D.querySelector("input[name=cm]:checked").value,o=(D.getElementById("cr").value||"").trim();
+ if(!o){toast("Enter or pick a source quote reference");return}
+ var q=QS.filter(function(x){return x.r.toLowerCase()===o.toLowerCase()})[0];
+ if(!q){toast("Quote "+o+" was not found. Pick one from the search results");return}
+ o=q.r;var own=o==="Q-2026-000125",comps,st0,tot,dest;
+ if(own){comps=JSON.parse(JSON.stringify(ORIG)).map(function(c){c.id=++S.uid;c.open=false;return c});st0=new Date(2026,10,17);tot=7;dest="Malta"}
+ else{var P=pkgFor(q);comps=P.comps;st0=P.start;tot=P.total;dest=CP[o].dest}
+ S.comps=comps;base=st0;D.getElementById("pt").value=q.p;
+ if(m==="new"){D.getElementById("l_id").textContent="New lead";D.getElementById("l_cu").textContent="Select customer";D.getElementById("l_em").textContent="–";D.getElementById("l_ph").textContent="–";
+  D.getElementById("l_de").textContent=dest;D.getElementById("l_dp").textContent=fmtRange(st0,tot)+" · "+tot+" nights";
+  D.getElementById("pa").value=2;D.getElementById("pc").value=0;D.getElementById("pi").value=0}
+ if(!own){D.getElementById("itx").value="";D.getElementById("itt").innerHTML='<tr><td colspan="5" class="empty">Formatted itinerary appears here.</td></tr>'}
+ S.ref++;S.ver=1;S.sent=false;S.trk={c:TD,s:"–",a:"–"};
+ S.rel.push({ref:"Q-2026-000"+S.ref,type:m==="new"?"New customer clone":"Alternative option",orig:o,a:AG,d:TD});
+ S.vers=[{v:1,d:TD,a:AG,n:"Cloned from "+o+" ("+(m==="new"?"new customer":"alternative option")+"). Original unchanged"}];
+ dl.close();st("Draft Quote");render();
+ toast("Cloned "+o+" as Q-2026-000"+S.ref+(m==="new"?". Now select the new customer":" and linked to this lead"))};
+D.getElementById("itb").onclick=function(){var r=D.getElementById("itx").value.split("\n").filter(function(l){return l.trim()}).map(function(l){var p=l.split(/\s*[|\t]\s*|\s{2,}|\s+[–-]\s+/);return"<tr>"+[0,1,2,3,4].map(function(i){return"<td>"+E(p[i]||"–")+"</td>"}).join("")+"</tr>"}).join("");
+ D.getElementById("itt").innerHTML=r||'<tr><td colspan="5">Nothing to format yet.</td></tr>';if(r)dirty()};
+D.getElementById("itx").value="18 Nov | Valletta, Malta | – | 18:00 | Embark\n19 Nov | Messina, Italy | 08:00 | 17:00 | Etna day trip\n20 Nov | At sea | – | – | Relax";
+D.querySelector("main").addEventListener("keydown",function(e){var t=e.target;if((e.key==="Enter"||e.key===" ")&&t.classList&&t.classList.contains("ct")){e.preventDefault();t.click()}});
+st("Draft Quote");render();
+</script><script>
+(function(){var D=document;
+function mirror(){var g=function(i){return D.getElementById(i)},t=function(i,v){var e=g(i);if(e)e.textContent=v};
+ var nm=g("l_cu").textContent.replace(/^(Mr|Mrs|Ms|Miss|Dr)\.?\s+/i,"").trim(),p=nm.split(/\s+/).filter(Boolean);
+ t("m_av",p.length?(p[0][0]+(p.length>1?p[p.length-1][0]:"")).toUpperCase():"?");
+ t("m_cu",g("l_cu").textContent);t("m_de",g("l_de").textContent);t("m_dp",g("l_dp").textContent);t("m_title","Quote to Book · "+g("l_de").textContent);
+ var a=+g("pa").value||0,c=+g("pc").value||0,i=+g("pi").value||0;t("m_tr",String(a+c+i).padStart(2,"0")+" ("+a+" Adt"+(c?", "+c+" Chd":"")+(i?", "+i+" Inf":"")+")");
+ t("m_sell",g("sell").textContent+" ("+g("pp").textContent+" pp)")}
+var _p=price;price=function(){_p.apply(this,arguments);mirror()};
+function showTab(n){D.querySelectorAll(".tabs [data-tab]").forEach(function(b){b.setAttribute("aria-selected",b.dataset.tab===n?"true":"false")});D.querySelectorAll(".panel").forEach(function(p){p.hidden=p.dataset.panel!==n})}
+D.querySelector(".tabs").addEventListener("click",function(e){var b=e.target.closest("[data-tab]");if(b)showTab(b.dataset.tab)});
+mirror()})();
+</script><script>
+(function(){var t=document.getElementById("day-tabs");new MutationObserver(function(){var a=t.querySelector('[aria-selected="true"]');if(a&&a.scrollIntoView)a.scrollIntoView({block:"nearest",inline:"nearest"})}).observe(t,{childList:true});})();
+</script></body></html>
